@@ -17,6 +17,10 @@
     "storagedynamoBbaasArn": {
       "Type": "String",
       "Default": "storagedynamoBbaasArn"
+    },
+    "storages3ffae7f78BucketName": {
+      "Type": "String",
+      "Default": "storages3ffae7f78BucketName"
     }
   },
   "Conditions": {
@@ -63,6 +67,15 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
+            },
+            "STORAGE_S3FFAE7F78_BUCKETNAME": {
+              "Ref": "storages3ffae7f78BucketName"
+            },
+            "STORAGE_DYNAMOBBAAS_NAME": {
+              "Ref": "storagedynamoBbaasName"
+            },
+            "STORAGE_DYNAMOBBAAS_ARN": {
+              "Ref": "storagedynamoBbaasArn"
             }
           }
         },
@@ -77,7 +90,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-bbaas-dev-95008-deployment",
-          "S3Key": "amplify-builds/lambdaUpload-3650544272723659366f-build.zip"
+          "S3Key": "amplify-builds/lambdaUpload-76457a4b6f6a53766862-build.zip"
         }
       }
     },
@@ -182,6 +195,79 @@
                         "Ref": "storagedynamoBbaasArn"
                       },
                       "index/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "AmplifyResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "amplify-lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Put*",
+                "dynamodb:Create*",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:Get*",
+                "dynamodb:BatchGetItem",
+                "dynamodb:List*",
+                "dynamodb:Describe*",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:Update*",
+                "dynamodb:RestoreTable*"
+              ],
+              "Resource": [
+                {
+                  "Ref": "storagedynamoBbaasArn"
+                },
+                {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      {
+                        "Ref": "storagedynamoBbaasArn"
+                      },
+                      "index/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:ListBucket"
+              ],
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:s3:::",
+                      {
+                        "Ref": "storages3ffae7f78BucketName"
+                      },
+                      "/*"
                     ]
                   ]
                 }
