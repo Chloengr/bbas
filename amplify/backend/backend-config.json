@@ -3,6 +3,10 @@
     "dynamoBbaas": {
       "service": "DynamoDB",
       "providerPlugin": "awscloudformation"
+    },
+    "s3ffae7f78": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
     }
   },
   "function": {
@@ -37,6 +41,30 @@
           "attributes": [
             "Name",
             "Arn"
+          ]
+        }
+      ]
+    }
+  },
+  "auth": {
+    "bbaas1f5bac06": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    },
+    "userPoolGroups": {
+      "service": "Cognito-UserPool-Groups",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "bbaas1f5bac06",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
           ]
         }
       ]

@@ -16,7 +16,7 @@ import {
   Toolbar,
   Typography
 } from '@material-ui/core'
-import { CloudUpload, Face, Home } from '@material-ui/icons'
+import { CloudUpload, Home } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 
 //import Reko from './Reko'
@@ -61,7 +61,6 @@ const MyAppBar = () => {
   const location = useLocation()
   let title = ''
   switch (location.pathname) {
-    default:
     case '/':
       title = "Page d'accueil"
       break
@@ -71,6 +70,7 @@ const MyAppBar = () => {
     case '/upload':
       title = 'Upload vers S3'
       break
+      default:
   }
   return (
     <AppBar position="absolute" className={clsx(classes.appBar, classes.appBarShift)}>
