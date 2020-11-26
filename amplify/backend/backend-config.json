@@ -29,6 +29,13 @@
           "attributes": [
             "BucketName"
           ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "bbaas1f5bac06",
+          "attributes": [
+            "UserPoolId"
+          ]
         }
       ]
     }

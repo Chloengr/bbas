@@ -12,6 +12,13 @@
         "read",
         "update"
       ]
+    },
+    "auth": {
+      "bbaas1f5bac06": [
+        "create",
+        "read",
+        "update"
+      ]
     }
   }
 }
